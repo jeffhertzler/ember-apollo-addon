@@ -1,3 +1,24 @@
-<h2 id="title">Welcome to Ember</h2>
-
-{{outlet}}
+{{doQuery}}
+{{#if doQuery}}
+  {{#test-query as |data loading networkStatus|}}
+    {{#if data}}
+      {{#test-query-2
+          variables=(hash id=data.id)
+          as |data2 loading2 networkStatus2|
+      }}
+        {{log "data2" data2}}
+        {{log "loading2" loading2}}
+        {{log "networkStatus2" networkStatus2}}
+      {{/test-query-2}}
+    {{/if}}
+    {{log "data" data}}
+    {{log "loading" loading}}
+    {{log "networkStatus" networkStatus}}
+  {{/test-query}}
+{{/if}}
+<button onclick={{action "toggle"}}>Toggle</button>
+{{#test-mutation as |mutate data loading|}}
+  <button onclick={{action mutate}}>Mutate</button>
+  {{log "mutationData" data}}
+  {{log "mutationLoading" loading}}
+{{/test-mutation}}

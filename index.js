@@ -1,5 +1,10 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  name: 'ember-apollo-addon'
+  name: "ember-apollo-addon",
+  options: {
+    babel: {
+      plugins: ["transform-object-rest-spread"]
+    }
+  }
 };
