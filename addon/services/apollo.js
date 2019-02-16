@@ -1,14 +1,9 @@
-import ApolloClientObj from "npm:apollo-client";
-import ApolloLinkObj from "npm:apollo-link";
-import HttpLinkObj from "npm:apollo-link-http";
-import InMemoryCacheObj from "npm:apollo-cache-inmemory";
 import Service from "@ember/service";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink } from "apollo-link";
+import { HttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 import { computed } from "@ember/object";
-
-const { ApolloClient } = ApolloClientObj;
-const { ApolloLink } = ApolloLinkObj;
-const { HttpLink } = HttpLinkObj;
-const { InMemoryCache } = InMemoryCacheObj;
 
 export default Service.extend({
   init() {
@@ -22,7 +17,7 @@ export default Service.extend({
   link: computed(
     () =>
       new HttpLink({
-        uri: "https://us-west-2.api.scaphold.io/graphql/graphql-world?"
+        uri: "/graphql"
       })
   ),
 

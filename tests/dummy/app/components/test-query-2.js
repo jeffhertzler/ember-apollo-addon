@@ -1,12 +1,12 @@
 import createQueryComponent from "ember-apollo-addon/create-query-component";
-import gql from "npm:graphql-tag";
+import gql from "graphql-tag";
 
 export default createQueryComponent({
+  meta: "2",
+  fetchPolicy: "cache-and-network",
   query: gql`
-    {
-      checkHealth {
-        healthy
-      }
+    query {
+      goodbye
     }
   `
 });

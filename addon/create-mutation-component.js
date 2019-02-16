@@ -14,7 +14,7 @@ export default function createMutationComponent(config) {
     actions: {
       mutate(options) {
         this.set("loading", true);
-        return this.get("apollo.client")
+        return this.apollo.client
           .mutate(Object.assign({}, config, options))
           .then(resp =>
             this.setProperties(

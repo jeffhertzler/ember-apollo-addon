@@ -20,17 +20,21 @@ export default function createQueryComponent(config) {
 
     layout: hbs`{{yield data loading networkStatus}}`,
 
+    fetchPolicy: computed(() => config.fetchPolicy),
+
+    meta: computed(() => config.meta),
+
     setup() {
-      let subscription = this.get("_subscription");
-      if (subscription) {
-        subscription.unsubscribe();
+      console.log("setup!", this.meta);
+      if (this._subscription) {
+        this._subscription.unsubscribe();
       }
-      const variables = this.get("variables");
-      const query = this.get("apollo.client").watchQuery({
+      const variables = this.variables;
+      const query = this.apollo.client.watchQuery({
         ...config,
         variables
       });
-      subscription = query.subscribe({
+      const subscription = query.subscribe({
         next: result => this.setProperties(result)
       });
       this.set("_subscription", subscription);
@@ -38,12 +42,15 @@ export default function createQueryComponent(config) {
 
     init() {
       this._super(...arguments);
+      console.log("init!", this.meta);
       this.setup();
     },
 
-    didReceiveAttrs() {
-      const oldVariables = this.get("oldVariables");
-      const variables = this.get("variables");
+    didUpdateAttrs() {
+      const oldVariables = this.oldVariables;
+      const variables = this.variables;
+
+      console.log(oldVariables, variables, this.meta);
 
       if (!_.isEqual(oldVariables, variables)) {
         this.setup();
@@ -51,7 +58,8 @@ export default function createQueryComponent(config) {
     },
 
     willDestroyElement() {
-      this.get("subscription").unsubscribe();
+      console.log("will destroy!", this.meta);
+      this._subscription.unsubscribe();
     }
   });
 }

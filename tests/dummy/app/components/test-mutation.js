@@ -1,16 +1,10 @@
 import createMutationComponent from "ember-apollo-addon/create-mutation-component";
-import gql from "npm:graphql-tag";
+import gql from "graphql-tag";
 
 export default createMutationComponent({
   mutation: gql`
-    mutation CreateUser($username: String!, $password: Secret!) {
-      createUser(input: { username: $username, password: $password }) {
-        token
-      }
+    mutation {
+      doIt
     }
-  `,
-  variables: {
-    username: "WhoaDudette",
-    password: "password"
-  }
+  `
 });
