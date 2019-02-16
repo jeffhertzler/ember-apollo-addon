@@ -14,4 +14,10 @@ export default class TestQuery extends Query {
       }
     }
   `;
+
+  updateQuery(previousResult, { fetchMoreResult }) {
+    return {
+      hello: [...previousResult.hello, ...fetchMoreResult.hello],
+    };
+  }
 }

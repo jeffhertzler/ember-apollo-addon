@@ -1,17 +1,20 @@
 import Controller from '@ember/controller';
+import gql from 'graphql-tag';
 
 export default class Application extends Controller {
   doQuery = true;
 
-  fetchMore1 = {
-    updateQuery(previousResult, { fetchMoreResult }) {
-      return {
-        hello: [...previousResult.hello, ...fetchMoreResult.hello],
-      };
-    },
-  };
-
-  fetchMore2 = {
+  testQuery2 = {
+    query: gql`
+      query {
+        goodbye {
+          id
+          message
+        }
+      }
+    `,
+    meta: '2',
+    fetchPolicy: 'cache-and-network',
     updateQuery(previousResult, { fetchMoreResult }) {
       return {
         goodbye: [...previousResult.goodbye, ...fetchMoreResult.goodbye],

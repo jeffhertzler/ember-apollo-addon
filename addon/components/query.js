@@ -34,7 +34,8 @@ class Query extends Component {
     if (this._subscription) {
       this._subscription.unsubscribe();
     }
-    const { query, variables, fetchPolicy } = this;
+    const { query, variables, fetchPolicy, meta } = this;
+    console.log(query, variables, fetchPolicy, meta);
     const _query = this.apollo.client.watchQuery({
       query,
       variables,
@@ -71,22 +72,25 @@ class Query extends Component {
 
   @action
   refetch(opts = {}) {
-    const { query, variables, fetchPolicy } = this;
+    const { query, variables, fetchPolicy, updateQuery } = this;
     this._query.refetch({
       query,
       variables,
       fetchPolicy,
+      updateQuery,
       ...opts,
     });
   }
 
   @action
   fetchMore(opts = {}) {
-    const { query, variables, fetchPolicy } = this;
+    const { query, variables, fetchPolicy, updateQuery } = this;
+    console.log(updateQuery);
     this._query.fetchMore({
       query,
       variables,
       fetchPolicy,
+      updateQuery,
       ...opts,
     });
   }
