@@ -1,27 +1,49 @@
-<div>
-  {{doQuery}}
-</div>
 {{#if doQuery}}
-  {{#test-query as |data loading networkStatus|}}
-    {{log "data" data}}
-    {{log "loading" loading}}
-    {{log "networkStatus" networkStatus}}
-    {{#if data}}
-      {{log "dataaaa" data}}
+  {{#test-query as |res|}}
+    {{#each res.data.hello as |item|}}
+      <div>
+        {{item.id}}:
+        {{item.message}}
+      </div>
+    {{/each}}
+    {{#if res.loading}}
+      Loading...
+    {{else}}
+      <button onclick={{action res.fetchMore fetchMore1}}>More 1</button>
+      <button onclick={{action res.refetch}}>Refetch</button>
+    {{/if}}
+    {{#if res.data}}
       {{#test-query-2
-          variables=(hash id=data.id)
-          as |data2 loading2 networkStatus2|
+        variables=(hash id=(get res.data.hello 0))
+        as |res2|
       }}
-        {{log "data2" data2}}
-        {{log "loading2" loading2}}
-        {{log "networkStatus2" networkStatus2}}
+        {{#each res2.data.goodbye as |item|}}
+          <div>
+            {{item.id}}:
+            {{item.message}}
+          </div>
+        {{/each}}
+        {{#if res2.loading}}
+          Loading2...
+        {{else}}
+          <button onclick={{action res2.fetchMore fetchMore2}}>More 2</button>
+        {{/if}}
       {{/test-query-2}}
     {{/if}}
   {{/test-query}}
 {{/if}}
 <button onclick={{action "toggle"}}>Toggle</button>
-{{#test-mutation as |mutate data loading|}}
-  <button onclick={{action mutate}}>Mutate</button>
-  {{log "mutationData" data}}
-  {{log "mutationLoading" loading}}
+{{#test-mutation as |res3|}}
+  <button onclick={{action res3.mutate}}>Mutate</button>
+  <div>
+    {{#each res3.data.doIt as |item|}}
+      <div>
+        {{item.id}}:
+        {{item.message}}
+      </div>
+    {{/each}}
+    {{#if res3.loading}}
+      Mutation Loading...
+    {{/if}}
+  </div>
 {{/test-mutation}}

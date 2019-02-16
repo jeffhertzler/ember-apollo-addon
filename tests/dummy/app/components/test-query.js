@@ -6,7 +6,10 @@ export default createQueryComponent({
   fetchPolicy: "cache-and-network",
   query: gql`
     query {
-      hello
+      hello {
+        id
+        message
+      }
     }
   `
 });

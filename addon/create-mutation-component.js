@@ -9,20 +9,20 @@ export default function createMutationComponent(config) {
     data: null,
     loading: false,
 
-    layout: hbs`{{yield (action "mutate") data loading}}`,
+    layout: hbs`{{yield (hash
+      mutate=(action "mutate")
+      data=data
+      loading=loading
+    )}}`,
 
     actions: {
-      mutate(options) {
+      async mutate(options) {
         this.set("loading", true);
-        return this.apollo.client
-          .mutate(Object.assign({}, config, options))
-          .then(resp =>
-            this.setProperties(
-              Object.assign({}, resp, {
-                loading: false
-              })
-            )
-          );
+        const res = await this.apollo.client.mutate({
+          ...config,
+          ...options
+        });
+        this.setProperties({ ...res, loading: false });
       }
     }
   });

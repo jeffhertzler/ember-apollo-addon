@@ -9,16 +9,22 @@ export default function createQueryComponent(config) {
     apollo: service(),
 
     data: null,
-    loading: null,
+    loading: true,
     networkStatus: null,
 
     _subscription: null,
     _query: null,
 
     variables: computed(() => config.variables),
-    oldVariables: computed(() => config.variables),
+    _variables: computed(() => config.variables),
 
-    layout: hbs`{{yield data loading networkStatus}}`,
+    layout: hbs`{{yield (hash
+      data=data
+      loading=loading
+      networkStatus=networkStatus
+      fetchMore=(action "fetchMore")
+      refetch=(action "refetch")
+    )}}`,
 
     fetchPolicy: computed(() => config.fetchPolicy),
 
@@ -29,7 +35,7 @@ export default function createQueryComponent(config) {
       if (this._subscription) {
         this._subscription.unsubscribe();
       }
-      const variables = this.variables;
+      const { variables } = this;
       const query = this.apollo.client.watchQuery({
         ...config,
         variables
@@ -37,7 +43,9 @@ export default function createQueryComponent(config) {
       const subscription = query.subscribe({
         next: result => this.setProperties(result)
       });
+      this.set("_variables", variables);
       this.set("_subscription", subscription);
+      this.set("_query", query);
     },
 
     init() {
@@ -47,19 +55,37 @@ export default function createQueryComponent(config) {
     },
 
     didUpdateAttrs() {
-      const oldVariables = this.oldVariables;
-      const variables = this.variables;
+      const { _variables, variables } = this;
 
-      console.log(oldVariables, variables, this.meta);
-
-      if (!_.isEqual(oldVariables, variables)) {
-        this.setup();
+      if (!_.isEqual(_variables, variables)) {
+        console.log(_variables, variables, this.meta);
+        this.set("_variables", variables);
+        this._query.refetch();
       }
     },
 
     willDestroyElement() {
       console.log("will destroy!", this.meta);
       this._subscription.unsubscribe();
+    },
+
+    actions: {
+      refetch(opts = {}) {
+        const { variables } = this;
+        this._query.refetch({
+          ...config,
+          variables,
+          ...opts
+        });
+      },
+      fetchMore(opts = {}) {
+        const { variables } = this;
+        this._query.fetchMore({
+          ...config,
+          variables,
+          ...opts
+        });
+      }
     }
   });
 }
