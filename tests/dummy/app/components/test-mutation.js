@@ -1,13 +1,13 @@
-import createMutationComponent from 'ember-apollo-addon/create-mutation-component';
+import Mutation from 'ember-apollo-addon/components/mutation';
 import gql from 'graphql-tag';
 
-export default createMutationComponent({
-  mutation: gql`
+export default class TestMutation extends Mutation {
+  mutation = gql`
     mutation {
       doIt {
         id
         message
       }
     }
-  `,
-});
+  `;
+}

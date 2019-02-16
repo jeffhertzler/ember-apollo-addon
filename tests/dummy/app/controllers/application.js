@@ -1,27 +1,27 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  doQuery: true,
+export default class Application extends Controller {
+  doQuery = true;
 
-  fetchMore1: {
+  fetchMore1 = {
     updateQuery(previousResult, { fetchMoreResult }) {
       return {
         hello: [...previousResult.hello, ...fetchMoreResult.hello],
       };
     },
-  },
+  };
 
-  fetchMore2: {
+  fetchMore2 = {
     updateQuery(previousResult, { fetchMoreResult }) {
       return {
         goodbye: [...previousResult.goodbye, ...fetchMoreResult.goodbye],
       };
     },
-  },
+  };
 
-  actions: {
+  actions = {
     toggle() {
       this.toggleProperty('doQuery');
     },
-  },
-});
+  };
+}
