@@ -1,6 +1,7 @@
 {
   "name": "apollo-express-middleware",
-  "keywords": [
-    "ember-addon"
-  ]
+  "keywords": ["ember-addon"],
+  "engines": {
+    "node": ">= 10.*"
+  }
 }

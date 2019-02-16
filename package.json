@@ -2,9 +2,7 @@
   "name": "ember-apollo-addon",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
-  "keywords": [
-    "ember-addon"
-  ],
+  "keywords": ["ember-addon"],
   "repository": "",
   "license": "MIT",
   "author": "",
@@ -56,18 +54,20 @@
     "ember-source": "~3.7.0",
     "ember-source-channel-url": "^1.1.0",
     "ember-try": "^1.0.0",
+    "eslint": "^5.14.0",
+    "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "loader.js": "^4.7.0",
+    "prettier": "^1.16.4",
     "qunit-dom": "^0.8.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": ">= 10.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "paths": [
-      "lib/apollo-express-middleware"
-    ]
+    "paths": ["lib/apollo-express-middleware"]
   }
 }

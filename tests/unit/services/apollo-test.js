@@ -10,4 +10,3 @@ module('Unit | Service | apollo', function(hooks) {
     assert.ok(service);
   });
 });
-

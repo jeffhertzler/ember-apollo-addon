@@ -1,6 +1,6 @@
-import Component from "@ember/component";
-import hbs from "htmlbars-inline-precompile";
-import { inject as service } from "@ember/service";
+import Component from '@ember/component';
+import hbs from 'htmlbars-inline-precompile';
+import { inject as service } from '@ember/service';
 
 export default function createMutationComponent(config) {
   return Component.extend({
@@ -17,13 +17,13 @@ export default function createMutationComponent(config) {
 
     actions: {
       async mutate(options) {
-        this.set("loading", true);
+        this.set('loading', true);
         const res = await this.apollo.client.mutate({
           ...config,
-          ...options
+          ...options,
         });
         this.setProperties({ ...res, loading: false });
-      }
-    }
+      },
+    },
   });
 }

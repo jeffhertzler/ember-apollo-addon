@@ -1,8 +1,8 @@
-import Component from "@ember/component";
-import _ from "lodash";
-import hbs from "htmlbars-inline-precompile";
-import { computed } from "@ember/object";
-import { inject as service } from "@ember/service";
+import Component from '@ember/component';
+import _ from 'lodash';
+import hbs from 'htmlbars-inline-precompile';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 export default function createQueryComponent(config) {
   return Component.extend({
@@ -31,26 +31,26 @@ export default function createQueryComponent(config) {
     meta: computed(() => config.meta),
 
     setup() {
-      console.log("setup!", this.meta);
+      console.log('setup!', this.meta);
       if (this._subscription) {
         this._subscription.unsubscribe();
       }
       const { variables } = this;
       const query = this.apollo.client.watchQuery({
         ...config,
-        variables
+        variables,
       });
       const subscription = query.subscribe({
-        next: result => this.setProperties(result)
+        next: result => this.setProperties(result),
       });
-      this.set("_variables", variables);
-      this.set("_subscription", subscription);
-      this.set("_query", query);
+      this.set('_variables', variables);
+      this.set('_subscription', subscription);
+      this.set('_query', query);
     },
 
     init() {
       this._super(...arguments);
-      console.log("init!", this.meta);
+      console.log('init!', this.meta);
       this.setup();
     },
 
@@ -59,13 +59,13 @@ export default function createQueryComponent(config) {
 
       if (!_.isEqual(_variables, variables)) {
         console.log(_variables, variables, this.meta);
-        this.set("_variables", variables);
+        this.set('_variables', variables);
         this._query.refetch();
       }
     },
 
     willDestroyElement() {
-      console.log("will destroy!", this.meta);
+      console.log('will destroy!', this.meta);
       this._subscription.unsubscribe();
     },
 
@@ -75,7 +75,7 @@ export default function createQueryComponent(config) {
         this._query.refetch({
           ...config,
           variables,
-          ...opts
+          ...opts,
         });
       },
       fetchMore(opts = {}) {
@@ -83,9 +83,9 @@ export default function createQueryComponent(config) {
         this._query.fetchMore({
           ...config,
           variables,
-          ...opts
+          ...opts,
         });
-      }
-    }
+      },
+    },
   });
 }

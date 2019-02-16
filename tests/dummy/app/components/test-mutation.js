@@ -1,5 +1,5 @@
-import createMutationComponent from "ember-apollo-addon/create-mutation-component";
-import gql from "graphql-tag";
+import createMutationComponent from 'ember-apollo-addon/create-mutation-component';
+import gql from 'graphql-tag';
 
 export default createMutationComponent({
   mutation: gql`
@@ -9,5 +9,5 @@ export default createMutationComponent({
         message
       }
     }
-  `
+  `,
 });
