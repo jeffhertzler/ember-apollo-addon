@@ -1,0 +1,70 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noEmitOnError": false,
+    "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "baseUrl": ".",
+    "module": "es6",
+    "paths": {
+      "dummy/tests/*": [
+        "tests/*"
+      ],
+      "dummy/*": [
+        "tests/dummy/app/*",
+        "app/*",
+        "lib/apollo-express-middleware/app/*"
+      ],
+      "ember-apollo-addon": [
+        "addon"
+      ],
+      "ember-apollo-addon/*": [
+        "addon/*"
+      ],
+      "ember-apollo-addon/test-support": [
+        "addon-test-support"
+      ],
+      "ember-apollo-addon/test-support/*": [
+        "addon-test-support/*"
+      ],
+      "apollo-express-middleware": [
+        "lib/apollo-express-middleware/addon"
+      ],
+      "apollo-express-middleware/*": [
+        "lib/apollo-express-middleware/addon/*"
+      ],
+      "apollo-express-middleware/test-support": [
+        "lib/apollo-express-middleware/addon-test-support"
+      ],
+      "apollo-express-middleware/test-support/*": [
+        "lib/apollo-express-middleware/addon-test-support/*"
+      ],
+      "*": [
+        "types/*"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "addon/**/*",
+    "tests/**/*",
+    "types/**/*",
+    "lib/apollo-express-middleware/**/*",
+    "test-support/**/*",
+    "addon-test-support/**/*"
+  ]
+}

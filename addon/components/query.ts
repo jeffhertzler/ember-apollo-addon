@@ -1,6 +1,7 @@
+import Apollo from 'ember-apollo-addon/services/apollo';
 import Component from '@ember/component';
-import _ from 'lodash';
 import hbs from 'htmlbars-inline-precompile';
+import isEqual from 'lodash.isequal';
 import { action } from '@ember-decorators/object';
 import { inject as service } from '@ember-decorators/service';
 import { layout } from '@ember-decorators/component';
@@ -13,52 +14,45 @@ import { layout } from '@ember-decorators/component';
   refetch=(action "refetch")
 )}}`)
 class Query extends Component {
-  @service apollo;
+  @service apollo!: Apollo;
 
-  data = null;
+  data: any;
   loading = true;
-  networkStatus = null;
+  networkStatus: any;
 
-  _subscription = null;
-  _query = null;
+  _subscription: any;
+  _query: any;
 
   variables = {};
   _variables = {};
 
   fetchPolicy = 'cache';
+  meta: any;
+  query: any;
 
-  meta;
+  updateQuery() {}
 
-  setup() {
-    console.log('setup!', this.meta);
-    if (this._subscription) {
-      this._subscription.unsubscribe();
-    }
-    const { query, variables, fetchPolicy, meta } = this;
-    console.log(query, variables, fetchPolicy, meta);
+  init() {
+    super.init();
+    const { query, variables, fetchPolicy } = this;
+    console.log('init!', this.meta);
     const _query = this.apollo.client.watchQuery({
       query,
       variables,
       fetchPolicy,
     });
     const _subscription = _query.subscribe({
-      next: result => this.setProperties(result),
+      next: (result: any) => this.setProperties(result),
     });
     this.set('_variables', variables);
     this.set('_subscription', _subscription);
     this.set('_query', _query);
   }
 
-  init() {
-    super.init(...arguments);
-    console.log('init!', this.meta);
-    this.setup();
-  }
-
   didUpdateAttrs() {
     const { _variables, variables } = this;
 
-    if (!_.isEqual(_variables, variables)) {
+    if (!isEqual(_variables, variables)) {
       console.log(_variables, variables, this.meta);
       this.set('_variables', variables);
       this._query.refetch();

@@ -1,12 +1,10 @@
 import Service from '@ember/service';
 import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { computed } from '@ember/object';
 
 export default class Apollo extends Service {
-  client = null;
+  client: any;
   cache = new InMemoryCache();
   link = new HttpLink({ uri: 'graphql' });
 
@@ -19,8 +17,8 @@ export default class Apollo extends Service {
 
   createApolloClient() {
     return new ApolloClient({
-      link: this.get('link'),
-      cache: this.get('cache'),
+      link: this.link,
+      cache: this.cache,
     });
   }
 }

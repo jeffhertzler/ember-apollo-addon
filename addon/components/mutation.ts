@@ -1,3 +1,4 @@
+import Apollo from 'ember-apollo-addon/services/apollo';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { action } from '@ember-decorators/object';
@@ -10,13 +11,14 @@ import { layout } from '@ember-decorators/component';
   loading=loading
 )}}`)
 class Mutation extends Component {
-  @service apollo;
+  @service apollo!: Apollo;
 
-  data = null;
+  data: any;
   loading = false;
+  mutation: any;
 
   @action
-  async mutate(options) {
+  async mutate(options: any) {
     this.set('loading', true);
     const res = await this.apollo.client.mutate({
       mutation: this.mutation,
