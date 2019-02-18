@@ -7,6 +7,25 @@ import { action } from '@ember-decorators/object';
 import { inject as service } from '@ember-decorators/service';
 import { layout } from '@ember-decorators/component';
 
+interface Query {
+  apollo: Apollo;
+
+  data: any;
+  loading: boolean;
+  networkStatus: any;
+
+  _subscription: any;
+  _query: any;
+  _variables: any;
+
+  fetchPolicy: string;
+  meta: any;
+  query: any;
+  variables: any;
+
+  updateQuery(previousResult: any, queryResult: any): any;
+}
+
 @layout(hbs`{{yield (hash
   data=data
   loading=loading
@@ -14,25 +33,23 @@ import { layout } from '@ember-decorators/component';
   fetchMore=(action "fetchMore")
   refetch=(action "refetch")
 )}}`)
-class Query extends Component {
+class Query extends Component implements Query {
   @service apollo!: Apollo;
 
   debug = debugLogger();
 
-  data: any;
+  data;
   loading = true;
-  networkStatus: any;
+  networkStatus;
 
-  _subscription: any;
-  _query: any;
-  _variables = {};
+  _subscription;
+  _query;
+  _variables;
 
   fetchPolicy = 'cache';
-  meta: any;
-  query: any;
-  variables = {};
-
-  updateQuery() {}
+  meta;
+  query;
+  variables;
 
   init() {
     super.init();

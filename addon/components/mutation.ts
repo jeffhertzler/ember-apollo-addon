@@ -6,12 +6,22 @@ import { action } from '@ember-decorators/object';
 import { inject as service } from '@ember-decorators/service';
 import { layout } from '@ember-decorators/component';
 
+interface Mutation {
+  apollo: Apollo;
+
+  data: any;
+  loading: boolean;
+
+  meta: any;
+  mutation: any;
+}
+
 @layout(hbs`{{yield (hash
   mutate=(action "mutate")
   data=data
   loading=loading
 )}}`)
-class Mutation extends Component {
+class Mutation extends Component implements Mutation {
   @service apollo!: Apollo;
 
   debug = debugLogger();
