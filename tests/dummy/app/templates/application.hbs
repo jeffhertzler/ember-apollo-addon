@@ -13,7 +13,7 @@
       <button onclick={{action res.refetch}}>Refetch</button>
     {{/if}}
     {{#if res.data}}
-      <Query
+      <ApolloQuery
         @query={{this.testQuery2.query}}
         @meta={{this.testQuery2.meta}}
         @fetchPolicy={{this.testQuery2.fetchPolicy}}
@@ -32,7 +32,7 @@
         {{else}}
           <button onclick={{action res2.fetchMore}}>More 2</button>
         {{/if}}
-      </Query>
+      </ApolloQuery>
     {{/if}}
   </TestQuery>
 {{/if}}
