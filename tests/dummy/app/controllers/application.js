@@ -13,7 +13,7 @@ export default class Application extends Controller {
         }
       }
     `,
-    meta: '2',
+    meta: 'test-query-2',
     fetchPolicy: 'cache-and-network',
     updateQuery(previousResult, { fetchMoreResult }) {
       return {

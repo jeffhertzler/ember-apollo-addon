@@ -2,7 +2,7 @@ import Query from 'ember-apollo-addon/components/query';
 import gql from 'graphql-tag';
 
 export default class TestQuery extends Query {
-  meta = '1';
+  meta = 'test-query';
 
   fetchPolicy = 'cache-and-network';
 
@@ -15,9 +15,9 @@ export default class TestQuery extends Query {
     }
   `;
 
-  updateQuery(previousResult, { fetchMoreResult }) {
+  updateQuery(previousResult: any, queryResult: any) {
     return {
-      hello: [...previousResult.hello, ...fetchMoreResult.hello],
+      hello: [...previousResult.hello, ...queryResult.fetchMoreResult.hello],
     };
   }
 }
