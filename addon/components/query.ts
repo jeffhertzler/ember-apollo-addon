@@ -1,5 +1,6 @@
 import Apollo from 'ember-apollo-addon/services/apollo';
 import Component from '@ember/component';
+import debugLogger from 'ember-debug-logger';
 import hbs from 'htmlbars-inline-precompile';
 import isEqual from 'lodash.isequal';
 import { action } from '@ember-decorators/object';
@@ -16,26 +17,29 @@ import { layout } from '@ember-decorators/component';
 class Query extends Component {
   @service apollo!: Apollo;
 
+  debug = debugLogger();
+
   data: any;
   loading = true;
   networkStatus: any;
 
   _subscription: any;
   _query: any;
-
-  variables = {};
   _variables = {};
 
   fetchPolicy = 'cache';
   meta: any;
   query: any;
+  variables = {};
 
   updateQuery() {}
 
   init() {
     super.init();
+
+    this.debug('init!', this.meta);
+
     const { query, variables, fetchPolicy } = this;
-    console.log('init!', this.meta);
     const _query = this.apollo.client.watchQuery({
       query,
       variables,
@@ -50,22 +54,27 @@ class Query extends Component {
   }
 
   didUpdateAttrs() {
+    this.debug('did update attrs!', this.meta);
+
     const { _variables, variables } = this;
 
     if (!isEqual(_variables, variables)) {
-      console.log(_variables, variables, this.meta);
+      this.debug(_variables, variables, this.meta);
       this.set('_variables', variables);
       this._query.refetch();
     }
   }
 
   willDestroyElement() {
-    console.log('will destroy!', this.meta);
+    this.debug('will destroy!', this.meta);
+
     this._subscription.unsubscribe();
   }
 
   @action
   refetch(opts = {}) {
+    this.debug('will destroy!', this.meta);
+
     const { query, variables, fetchPolicy, updateQuery } = this;
     this._query.refetch({
       query,
@@ -78,8 +87,9 @@ class Query extends Component {
 
   @action
   fetchMore(opts = {}) {
+    this.debug('fetch more!', this.meta);
+
     const { query, variables, fetchPolicy, updateQuery } = this;
-    console.log(updateQuery);
     this._query.fetchMore({
       query,
       variables,

@@ -1,5 +1,6 @@
 import Apollo from 'ember-apollo-addon/services/apollo';
 import Component from '@ember/component';
+import debugLogger from 'ember-debug-logger';
 import hbs from 'htmlbars-inline-precompile';
 import { action } from '@ember-decorators/object';
 import { inject as service } from '@ember-decorators/service';
@@ -13,12 +14,18 @@ import { layout } from '@ember-decorators/component';
 class Mutation extends Component {
   @service apollo!: Apollo;
 
+  debug = debugLogger();
+
   data: any;
   loading = false;
+
+  meta: any;
   mutation: any;
 
   @action
   async mutate(options: any) {
+    this.debug('mutate!', this.meta);
+
     this.set('loading', true);
     const res = await this.apollo.client.mutate({
       mutation: this.mutation,
