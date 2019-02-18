@@ -2,7 +2,9 @@
   "name": "ember-apollo-addon",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
-  "keywords": ["ember-addon"],
+  "keywords": [
+    "ember-addon"
+  ],
   "repository": "",
   "license": "MIT",
   "author": "",
@@ -33,6 +35,7 @@
     "ember-cli-typescript": "^2.0.0-rc.2",
     "ember-debug-logger": "^2.0.0",
     "ember-decorators": "^5.1.3",
+    "graphql-anywhere": "^4.1.28",
     "graphql-tag": "^2.10.1",
     "lodash.isequal": "^4.5.0"
   },
@@ -85,6 +88,8 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "paths": ["lib/apollo-express-middleware"]
+    "paths": [
+      "lib/apollo-express-middleware"
+    ]
   }
 }

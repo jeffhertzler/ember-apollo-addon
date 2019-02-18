@@ -1,0 +1,4 @@
+{{#if this.data}}
+  {{log "nested" this.data}}
+  {{nested-queries/child-query data=this.data.nested}}
+{{/if}}
