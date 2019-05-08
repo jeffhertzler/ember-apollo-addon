@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import fragment from './fragment';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 import { filter } from 'graphql-anywhere';
 
 export default class ChildQuery extends Component {

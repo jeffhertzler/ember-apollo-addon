@@ -3,8 +3,8 @@ import Component from '@ember/component';
 import debugLogger from 'ember-debug-logger';
 import hbs from 'htmlbars-inline-precompile';
 import isEqual from 'lodash.isequal';
-import { action } from '@ember-decorators/object';
-import { inject as service } from '@ember-decorators/service';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { layout } from '@ember-decorators/component';
 
 interface Query {
