@@ -22,6 +22,7 @@ interface Query {
   meta: any;
   query: any;
   variables: any;
+  pollInterval: number;
 
   updateQuery(previousResult: any, queryResult: any): any;
 }
@@ -50,17 +51,19 @@ class Query extends Component implements Query {
   meta;
   query;
   variables;
+  pollInterval = 0;
 
   init() {
     super.init();
 
     this.debug('init!', this.meta);
 
-    const { query, variables, fetchPolicy } = this;
+    const { query, variables, fetchPolicy, pollInterval } = this;
     const _query = this.apollo.client.watchQuery({
       query,
       variables,
       fetchPolicy,
+      pollInterval,
     });
     const _subscription = _query.subscribe({
       next: (result: any) => this.setProperties(result),
