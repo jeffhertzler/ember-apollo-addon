@@ -9,7 +9,7 @@ export default class Apollo extends Service {
   link = new HttpLink({ uri: 'graphql' });
 
   init() {
-    this._super(...arguments);
+    super.init();
 
     const client = this.createApolloClient();
     this.set('client', client);
