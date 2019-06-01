@@ -3,6 +3,7 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 
 const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
+const id = () => Math.round(Math.random() * 10);
 
 const typeDefs = gql`
   type Hello {
@@ -80,14 +81,6 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-module.exports = {
-  name: require('./package').name,
-
-  serverMiddleware({ app }) {
-    server.applyMiddleware({ app });
-  },
+module.exports = function(app) {
+  server.applyMiddleware({ app });
 };
-
-function id() {
-  return Math.round(Math.random() * 10);
-}
